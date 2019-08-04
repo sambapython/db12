@@ -1,0 +1,4 @@
+create an app called instructor
+create an url 'instructors'
+when the user send a request for instructors, it hast to call the 'instm' function
+of instructor views. That function should render to "instructors_list.html"
