@@ -17,7 +17,11 @@ from django.contrib import admin
 from django.urls import path
 from django.http import HttpResponse
 from students.views import reg,inst
-from management.views import manage,get_cores
+from management.views import manage,get_cores, home_view,courses_offered_view,\
+create_course_view
+
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +29,7 @@ urlpatterns = [
     path('management/',manage),
     path("inst/",inst),
     path("get_cpu_cores/",get_cores),
+    path("",home_view),
+    path("courses_offered/",courses_offered_view),
+    path("create_course/",create_course_view)
 ]
