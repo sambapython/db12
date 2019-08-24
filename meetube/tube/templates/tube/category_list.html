@@ -1,0 +1,17 @@
+{% extends "tube/index.html"%}
+{% block content %}
+ <h2>CATEGORIES</h2>
+ <h2><a href="/create_category"> CRETAE CATEGORY</a></h2>
+ <table>
+ 	<tr>
+ 		<th>NAME</th>
+ 	</tr>
+ 	{% for row in object_list%}
+ 	<tr>
+ 		<td>{{ row.name }}</td>
+ 		<td><a href="/update_category/{{ row.id }}">Update</a>||
+ 			<a href="/delete_category/{{ row.id }}">DELETE</a></td>
+ 	</tr>
+ 	{% endfor %}
+ </table>
+{% endblock %}
