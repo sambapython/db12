@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 from django.views.generic import TemplateView, ListView, CreateView,\
-UpdateView
+UpdateView, DeleteView
 from tube.models import Category
 
 urlpatterns = [
@@ -30,6 +30,8 @@ urlpatterns = [
     	) ),
     re_path("update_category/(?P<pk>[0-9]+)",UpdateView.as_view(model=Category,
     	success_url="/categories",
-    	fields="__all__",
-    	))
+    	fields= ["name"] #"__all__",
+    	)),
+    re_path("delete_category/(?P<pk>[0-9]+)",DeleteView.as_view(model=Category,
+        success_url="/categories")),
 ]
