@@ -4,6 +4,13 @@ from django.db import models
 class Category(models.Model):
 	name=models.CharField(max_length=250)
 
+	def __str__(self):
+		"""
+		while you are printing the Category object in the front end, this method
+		will be called and show the only name column value(As per definition.)
+		"""
+		return self.name
+
 class Video(models.Model):
 	type_choices = [('public','public'),('semi-public','semi-public'),
 	("private","private")]

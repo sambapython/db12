@@ -1,0 +1,8 @@
+{% extends "tube/index.html"%}
+{% block content%}
+<form method="post">
+	{% csrf_token%}
+	<input type="submit" name="" value="Do you want to delete?">
+	
+</form>
+{% endblock%}
