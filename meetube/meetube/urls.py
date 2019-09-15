@@ -20,7 +20,8 @@ UpdateView, DeleteView
 from tube.models import Category, Video
 from django.conf.urls.static import static
 from django.conf import settings
-from tube.views import index_view, register_view, login_view,logout_view
+from tube.views import index_view, register_view, login_view,logout_view,\
+uploadview
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,20 +29,23 @@ urlpatterns = [
     path("",index_view),
     path("categories/", ListView.as_view(model = Category)),
     path("create_category/", CreateView.as_view(
-    	model=Category,
-    	success_url="/categories",
-    	fields="__all__",
-    	) ),
+        model=Category,
+        success_url="/categories",
+        fields="__all__",
+        ) ),
     re_path("update_category/(?P<pk>[0-9]+)",UpdateView.as_view(model=Category,
-    	success_url="/categories",
-    	fields= ["name"] #"__all__",
-    	)),
+        success_url="/categories",
+        fields= ["name"] #"__all__",
+        )),
     re_path("delete_category/(?P<pk>[0-9]+)",DeleteView.as_view(model=Category,
         success_url="/categories")),
     path("videos/",ListView.as_view(model=Video)),
-    path("upload/", CreateView.as_view(model=Video, 
-        success_url="/videos",
-        fields="__all__")),
+    
+    #path("upload/", VideoUploadView.as_view(model=Video, 
+    #    success_url="/videos",
+    #    fields=["name","link","description","type","tags","category"])),
+    
+    path("upload/",uploadview),
     re_path("update_video/(?P<pk>[0-9]+)/",UpdateView.as_view(model=Video,
         success_url="/videos", fields="__all__")),
     re_path("delete_video/(?P<pk>[0-9]+)/",DeleteView.as_view(model=Video,

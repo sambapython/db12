@@ -2,8 +2,26 @@ from django.shortcuts import render, redirect
 from tube.models import Video
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
+from tube.forms import VideoSearchForm, VideoCreateForm
+from django.views.generic import CreateView
 
 # Create your views here.
+def uploadview(request):
+	if request.method=="POST":
+		data = request.POST,
+		data["user"] = request.user.id
+		form = VideoCreateForm(data =data, files=request.FILES)
+		if form.is_valid():
+			form.save()
+		else:
+			msg= form._errors
+			return render(request,"tube/video_form.html",{"form":form,"msg":msg})
+	else:
+		form = VideoCreateForm()
+		return render(request,"tube/video_form.html",{"form":form})
+
+	
+
 def logout_view(request):
 	logout(request)
 	return redirect("/")
@@ -35,5 +53,8 @@ def register_view(request):
 
 	return render(request,"tube/register.html",{"msg":msg})
 def index_view(request):
+
 	public_videos = Video.objects.filter(type="public")
-	return render(request,"tube/index.html",{"videos":public_videos})
+	form = VideoSearchForm()
+	return render(request,"tube/index.html",{"videos":public_videos,
+		"form":form})
