@@ -21,7 +21,7 @@ from tube.models import Category, Video
 from django.conf.urls.static import static
 from django.conf import settings
 from tube.views import index_view, register_view, login_view,logout_view,\
-uploadview
+uploadview, videolist
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,7 +39,7 @@ urlpatterns = [
         )),
     re_path("delete_category/(?P<pk>[0-9]+)",DeleteView.as_view(model=Category,
         success_url="/categories")),
-    path("videos/",ListView.as_view(model=Video)),
+    path("videos/",videolist),
     
     #path("upload/", VideoUploadView.as_view(model=Video, 
     #    success_url="/videos",

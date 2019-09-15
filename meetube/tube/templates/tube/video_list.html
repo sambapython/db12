@@ -2,7 +2,7 @@
 {% block content%}
 <h2>Videos</h2>
 <h2><a href="/upload">Upload Your File</a></h2>
-{% for video in object_list%}
+{% for video in videos%}
 <div class="col-sm-12">
 	<p><video src="/media/{{video.link}}" width="200" height="200"controls></video></p>
 	<p>{{video.name}}:{{ video.description }}:{{video.type}}</p>

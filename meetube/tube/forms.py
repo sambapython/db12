@@ -1,10 +1,11 @@
 from django.forms import ModelForm
 from tube.models import Video
+from django import forms
 
-class VideoSearchForm(ModelForm):
-	class Meta:
-		model = Video
-		fields = ['name',"tags","category"]
+class VideoSearchForm(forms.Form):
+	name=forms.CharField(max_length=250,required=False)
+	tags=forms.CharField(max_length=250, required=False)
+	category = forms.CharField(max_length=250, required=False)
 class VideoCreateForm(ModelForm):
 	class Meta:
 		model = Video

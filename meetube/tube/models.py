@@ -20,7 +20,7 @@ class Video(models.Model):
 	description = models.TextField(max_length=250,blank=True, null=True)
 	type = models.CharField(choices=type_choices,default="public", max_length=250)
 	tags = models.CharField(max_length=250)
-	user = models.ForeignKey(User, on_delete=models.PROTECT)
+	user = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True)
 	#comments
 	#watchers
 	#rating
