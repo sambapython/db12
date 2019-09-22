@@ -21,10 +21,11 @@ from tube.models import Category, Video
 from django.conf.urls.static import static
 from django.conf import settings
 from tube.views import index_view, register_view, login_view,logout_view,\
-uploadview, videolist
+uploadview, videolist, view_video_show
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    re_path('show_video/(?P<pk>[0-9]+)/$',view_video_show),
     #path("", TemplateView.as_view(template_name="tube/index.html")),
     path("",index_view),
     path("categories/", ListView.as_view(model = Category)),

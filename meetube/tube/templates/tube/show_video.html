@@ -1,0 +1,25 @@
+{% extends "tube/index.html"%}
+{% block content%}
+	<p><video src="/media/{{video.link}}" width="200" height="200"controls></video></p>
+	<p>{{video.name}}:{{ video.description }}:{{video.type}}</p>
+	<p>WATCHERS:{{ watchers }} RATE:{{rating}}</p>
+	<form method="post">
+		{% csrf_token %}
+		<input type="textarea" name="msg">
+		<input type="submit" name="comment" value="COMMENT">
+	</form>
+	<form method="post">
+		{% csrf_token %}
+		<input type="text" name="rate">
+		<input type="submit" name="rating" value="RATEIT">
+		
+	</form>
+	<table>
+		{% for cmt in video.comments.all%}
+			<tr><td>{{ cmt.msg }} || </td><td>{{ cmt.user.username }}</td></tr>
+		{% endfor %}
+	</table>
+	
+
+	
+{% endblock%}

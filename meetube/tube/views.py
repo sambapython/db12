@@ -1,10 +1,38 @@
 from django.shortcuts import render, redirect
-from tube.models import Video
+from tube.models import Video, Comment, Watcher, Rate
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from tube.forms import VideoSearchForm, VideoCreateForm
 from django.views.generic import CreateView
 from django.db.models import Q
+
+def view_video_show(request,pk):
+	video = Video.objects.get(id=pk)
+	if request.method=="GET":
+		watcher = Watcher(user=request.user)
+		watcher.save()
+		video.watchers.add(watcher)
+		watcher.save()
+	if request.method == "POST":
+		data = request.POST
+		if "comment" in data:
+			message = data.get("msg")
+			cmt = Comment(msg=message,user=request.user)
+			cmt.save()
+			video.comments.add(cmt)
+			video.save()
+		if "rating" in data:
+			value=data.get("rate")
+			rate=Rate(value=value,user=request.user)
+			rate.save()
+			video.rating.add(rate)
+	watchers_count = len(video.watchers.all())
+	ratings = video.rating.all()
+	rate_count= len(ratings)
+	rating = sum([rate.value for rate in ratings])/rate_count
+	return render(request,"tube/show_video.html",{"video":video,
+		"watchers":watchers_count,"rating":rating})
+
 
 def get_videos(request):
 	if request.user.is_authenticated:
